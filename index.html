@@ -72,7 +72,7 @@
     function updateSnowflake(snowflake) {
       snowflake.y += snowflake.speed;
       if (snowflake.y + snowflake.size >= canvas.height - snowAccumulation[Math.floor(snowflake.x)]) {
-        snowAccumulation[Math.floor(snowflake.x)] += snowflake.size * 50; // Zwiększony wpływ na akumulację
+        snowAccumulation[Math.floor(snowflake.x)] += snowflake.size * 20; // Zwiększony wpływ na akumulację
         return false;
       }
       return true;
