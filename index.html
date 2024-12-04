@@ -51,12 +51,13 @@
     let snowAccumulation = new Array(canvas.width).fill(0);
     let isMessageDisplayed = false;
 
+    // Szybsze tworzenie płatków śniegu
     function createSnowflake() {
       return {
         x: Math.random() * canvas.width,
         y: Math.random() * -50,
-        size: Math.random() * 3 + 2,
-        speed: Math.random() * 1 + 1,
+        size: Math.random() * 3 + 3, // Większe płatki
+        speed: Math.random() * 5 + 3, // Szybsze opadanie
       };
     }
 
@@ -71,7 +72,7 @@
     function updateSnowflake(snowflake) {
       snowflake.y += snowflake.speed;
       if (snowflake.y + snowflake.size >= canvas.height - snowAccumulation[Math.floor(snowflake.x)]) {
-        snowAccumulation[Math.floor(snowflake.x)] += snowflake.size / 2;
+        snowAccumulation[Math.floor(snowflake.x)] += snowflake.size; // Szybsze gromadzenie
         return false;
       }
       return true;
@@ -102,7 +103,10 @@
         return isStillFalling;
       });
 
-      if (Math.random() < 0.1) snowflakes.push(createSnowflake());
+      // Zwiększona liczba płatków śniegu
+      for (let i = 0; i < 10; i++) {
+        snowflakes.push(createSnowflake());
+      }
 
       checkSnowHeight();
       if (!isMessageDisplayed) requestAnimationFrame(animate);
