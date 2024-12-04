@@ -56,8 +56,8 @@
       return {
         x: Math.random() * canvas.width,
         y: Math.random() * -50,
-        size: Math.random() * 8 + 5, // Duże płatki
-        speed: Math.random() * 8 + 4, // Szybkie opadanie
+        size: Math.random() * 16 + 5, // Duże płatki
+        speed: Math.random() * 16 + 4, // Szybkie opadanie
       };
     }
 
@@ -72,7 +72,7 @@
     function updateSnowflake(snowflake) {
       snowflake.y += snowflake.speed;
       if (snowflake.y + snowflake.size >= canvas.height - snowAccumulation[Math.floor(snowflake.x)]) {
-        snowAccumulation[Math.floor(snowflake.x)] += snowflake.size * 5; // Zwiększony wpływ na akumulację
+        snowAccumulation[Math.floor(snowflake.x)] += snowflake.size * 50; // Zwiększony wpływ na akumulację
         return false;
       }
       return true;
