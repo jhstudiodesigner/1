@@ -3,121 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Świąteczny Śnieg</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: linear-gradient(to bottom, #1e3c72, #2a5298);
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    canvas {
-      display: block;
-    }
-
-    #message {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3rem;
-      font-weight: bold;
-      color: #ffde00;
-      text-shadow: 2px 2px 5px #000;
-      z-index: 2;
-    }
-  </style>
+  <title>Świąteczne Życzenia</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="message">WESOŁYCH ŚWIĄT!</div>
-  <canvas id="snowCanvas"></canvas>
-  <script>
-    const canvas = document.getElementById('snowCanvas');
-    const ctx = canvas.getContext('2d');
-    const message = document.getElementById('message');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let snowflakes = [];
-    const groundHeight = canvas.height * 0.1;
-    let snowAccumulation = new Array(canvas.width).fill(0);
-    let isMessageDisplayed = false;
-
-    // Tworzenie dużych płatków śniegu
-    function createSnowflake() {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * -50,
-        size: Math.random() * 16 + 5, // Duże płatki
-        speed: Math.random() * 16 + 4, // Szybkie opadanie
-      };
-    }
-
-    function drawSnowflake(snowflake) {
-      ctx.beginPath();
-      ctx.arc(snowflake.x, snowflake.y, snowflake.size, 0, Math.PI * 2);
-      ctx.fillStyle = '#fff';
-      ctx.fill();
-      ctx.closePath();
-    }
-
-    function updateSnowflake(snowflake) {
-      snowflake.y += snowflake.speed;
-      if (snowflake.y + snowflake.size >= canvas.height - snowAccumulation[Math.floor(snowflake.x)]) {
-        snowAccumulation[Math.floor(snowflake.x)] += snowflake.size * 20; // Zwiększony wpływ na akumulację
-        return false;
-      }
-      return true;
-    }
-
-    function drawGround() {
-      ctx.fillStyle = '#fff';
-      for (let x = 0; x < canvas.width; x++) {
-        ctx.fillRect(x, canvas.height - snowAccumulation[x], 1, snowAccumulation[x]);
-      }
-    }
-
-    function checkSnowHeight() {
-      const maxSnowHeight = Math.max(...snowAccumulation);
-      if (maxSnowHeight >= canvas.height - groundHeight && !isMessageDisplayed) {
-        message.style.display = 'block';
-        isMessageDisplayed = true;
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawGround();
-
-      snowflakes = snowflakes.filter((snowflake) => {
-        const isStillFalling = updateSnowflake(snowflake);
-        if (isStillFalling) drawSnowflake(snowflake);
-        return isStillFalling;
-      });
-
-      // Tworzenie większej liczby płatków
-      for (let i = 0; i < 50; i++) {
-        snowflakes.push(createSnowflake());
-      }
-
-      checkSnowHeight();
-      if (!isMessageDisplayed) requestAnimationFrame(animate);
-    }
-
-    animate();
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      snowAccumulation = new Array(canvas.width).fill(0);
-    });
-  </script>
+  <div class="container">
+    <header>
+      <h1>Wesołych Świąt!</h1>
+    </header>
+    <main>
+      <div class="image-container">
+        <img src="swieta.jpg" alt="Świąteczny obrazek">
+      </div>
+      <div class="text-container">
+        <p>
+          Z okazji Świąt Bożego Narodzenia składamy najserdeczniejsze życzenia zdrowia, radości i pokoju. 
+          Niech ten czas przyniesie wiele pięknych chwil spędzonych w gronie najbliższych! 
+          Wesołych Świąt i Szczęśliwego Nowego Roku!
+        </p>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2024 Życzenia Świąteczne</p>
+    </footer>
+  </div>
 </body>
 </html>
